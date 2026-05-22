@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Web MVC (Phiên bản 6.x trở lên bắt buộc cho Tomcat 10)
+    implementation 'org.springframework:spring-webmvc:6.1.14'
+
+    // Jakarta Servlet và JSP API thay thế cho javax ngày xưa
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    compileOnly 'jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.0.0'
+
+    // Thư viện JSTL dành riêng cho Jakarta EE để chạy các thẻ như <c:if> trên JSP
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+}
+
+test {
+    useJUnitPlatform()
+}
