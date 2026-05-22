@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'war' // Đóng gói file .war để deploy lên Tomcat 10
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 1. Spring Web MVC (Cần phiên bản từ 6.x trở lên để hỗ trợ Jakarta EE / Tomcat 10)
+    implementation 'org.springframework:spring-webmvc:6.1.6'
+
+    // 2. Jakarta Servlet API (Dành riêng cho Tomcat 10+)
+    providedCompile 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+    // 3. Jakarta JSTL để chạy các thẻ <c:forEach>, <c:choose> ở file JSP trên Tomcat 10
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
