@@ -12,7 +12,7 @@
 
     <mvc:annotation-driven />
 
-    <context:component-scan base-package="com.example.baitudien.controller"/>
+    <context:component-scan base-package="com.example.baitudien"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />
