@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Blog</title>
+</head>
+<body>
+<h1>Danh sách Blog</h1>
+<a th:href="@{/blogs/create}">Viết blog mới</a>
+<hr>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tiêu đề</th>
+        <th>Tóm tắt</th>
+        <th>Ngày tạo</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="blog : ${blogs}">
+        <td th:text="${blog.id}"></td>
+        <td th:text="${blog.title}"></td>
+        <td th:text="${blog.summary}"></td>
+        <td th:text="${blog.createdAt}"></td>
+        <td>
+            <a th:href="@{/blogs/{id}(id=${blog.id})}">Xem</a>
+            |
+            <a th:href="@{/blogs/{id}/edit(id=${blog.id})}">Sửa</a>
+            |
+            <form th:action="@{/blogs/{id}/delete(id=${blog.id})}" method="post" style="display:inline">
+                <button type="submit" onclick="return confirm('Bạn có chắc muốn xoá blog này không?')">
+                    Xoá
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
