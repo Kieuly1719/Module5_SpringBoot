@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Chi tiết sản phẩm</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <td th:text="${product.id}"></td>
+        </tr>
+
+        <tr>
+            <th>Tên sản phẩm</th>
+            <td th:text="${product.name}"></td>
+        </tr>
+
+        <tr>
+            <th>Giá sản phẩm</th>
+            <td th:text="${product.price}"></td>
+        </tr>
+
+        <tr>
+            <th>Mô tả</th>
+            <td th:text="${product.description}"></td>
+        </tr>
+
+        <tr>
+            <th>Nhà sản xuất</th>
+            <td th:text="${product.manufacturer}"></td>
+        </tr>
+    </table>
+
+    <div class="form-actions">
+        <a th:href="@{/products/{id}/edit(id=${product.id})}">Sửa sản phẩm</a>
+        <a th:href="@{/templates/products}">Quay lại danh sách</a>
+    </div>
+</div>
+
+</body>
+</html>

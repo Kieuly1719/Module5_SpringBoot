@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sản phẩm</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Quản lý sản phẩm với ORM</h1>
+
+    <div class="top-bar">
+        <a class="btn" th:href="@{/products/new}">Thêm sản phẩm mới</a>
+
+        <form th:action="@{/templates/products}" method="get" class="search-form">
+            <input type="text"
+                   name="keyword"
+                   placeholder="Nhập tên sản phẩm..."
+                   th:value="${keyword}">
+
+            <button type="submit">Tìm kiếm</button>
+            <a th:href="@{/templates/products}">Làm mới</a>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Nhà sản xuất</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.manufacturer}"></td>
+            <td>
+                <a th:href="@{/products/{id}(id=${product.id})}">Chi tiết</a>
+                |
+                <a th:href="@{/products/{id}/edit(id=${product.id})}">Sửa</a>
+                |
+                <a th:href="@{/products/{id}/delete(id=${product.id})}"
+                   onclick="return confirm('Bạn có chắc chắn muốn xoá sản phẩm này không?')">
+                    Xoá
+                </a>
+            </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(products)}">
+            <td colspan="5">Không có sản phẩm nào.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
