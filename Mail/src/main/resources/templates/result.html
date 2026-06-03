@@ -1,10 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Email Settings</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .form-row label {
+            width: 150px;
+            font-weight: bold;
+        }
+
+        select {
+            padding: 5px;
+            width: 300px;
+        }
+
+        .page-size-select {
+            width: 70px;
+            margin: 0 10px;
+        }
+
+        textarea {
+            width: 330px;
+            height: 110px;
+            padding: 8px;
+        }
+
+        .button-row {
+            margin-left: 150px;
+        }
+
+        button {
+            width: 130px;
+            padding: 8px;
+            margin-right: 25px;
+            cursor: pointer;
+        }
+
+        .update-btn {
+            background-color: #1ba7e1;
+            color: white;
+            border: none;
+        }
+
+        .cancel-btn {
+            background-color: white;
+            border: 1px solid #333;
+        }
+    </style>
 </head>
+
 <body>
-$END$
+
+<h1>Settings</h1>
+
+<form th:action="@{/settings}" th:object="${emailConfig}" method="post">
+
+    <div class="form-row">
+        <label>Languages</label>
+        <select th:field="*{language}">
+            <option th:each="lang : ${languages}"
+                    th:value="${lang}"
+                    th:text="${lang}">
+            </option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label>Page Size:</label>
+        <span>Show</span>
+
+        <select class="page-size-select" th:field="*{pageSize}">
+            <option th:each="size : ${pageSizes}"
+                    th:value="${size}"
+                    th:text="${size}">
+            </option>
+        </select>
+
+        <span>emails per page</span>
+    </div>
+
+    <div class="form-row">
+        <label>Spams filter:</label>
+        <input type="checkbox" th:field="*{spamsFilter}">
+        <span style="margin-left: 10px;">Enable spams filter</span>
+    </div>
+
+    <div class="form-row">
+        <label>Signature:</label>
+        <textarea th:field="*{signature}"></textarea>
+    </div>
+
+    <div class="button-row">
+        <button type="submit" class="update-btn">Update</button>
+        <button type="reset" class="cancel-btn">Cancel</button>
+    </div>
+
+</form>
+
 </body>
 </html>
