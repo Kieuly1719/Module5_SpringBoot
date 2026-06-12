@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng ký người dùng</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="card">
+    <h1>Đăng ký người dùng</h1>
+    <p class="subtitle">Vui lòng nhập đầy đủ thông tin bên dưới.</p>
+
+    <form th:action="@{/}" th:object="${user}" method="post" novalidate>
+        <div class="field">
+            <label for="firstName">First name</label>
+            <input id="firstName" type="text" th:field="*{firstName}">
+            <small class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
+        </div>
+
+        <div class="field">
+            <label for="lastName">Last name</label>
+            <input id="lastName" type="text" th:field="*{lastName}">
+            <small class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
+        </div>
+
+        <div class="field">
+            <label for="phoneNumber">Số điện thoại</label>
+            <input id="phoneNumber" type="text" th:field="*{phoneNumber}" placeholder="Ví dụ: 0912345678">
+            <small class="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></small>
+        </div>
+
+        <div class="field">
+            <label for="age">Tuổi</label>
+            <input id="age" type="number" th:field="*{age}" min="18">
+            <small class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></small>
+        </div>
+
+        <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" th:field="*{email}">
+            <small class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+        </div>
+
+        <button type="submit">Đăng ký</button>
+    </form>
+</main>
+</body>
+</html>
