@@ -1,0 +1,250 @@
+:root {
+    --background: #f4f7fb;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --primary: #5b4be8;
+    --primary-dark: #4338ca;
+    --border: #dce3ec;
+    --danger: #dc2626;
+    --success-bg: #dcfce7;
+    --success-text: #166534;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: var(--text);
+    background: linear-gradient(135deg, #f7f8ff 0%, var(--background) 55%, #eef7ff 100%);
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+}
+
+.container {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 64px 0;
+}
+
+.narrow {
+    width: min(720px, calc(100% - 32px));
+}
+
+.page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+h1 {
+    margin: 4px 0 8px;
+    font-size: clamp(30px, 5vw, 42px);
+    letter-spacing: -1px;
+}
+
+.eyebrow {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.subtitle,
+.hint {
+    color: var(--muted);
+}
+
+.subtitle {
+    margin: 0;
+}
+
+.card {
+    border: 1px solid rgba(220, 227, 236, .85);
+    border-radius: 18px;
+    background: var(--card);
+    box-shadow: 0 18px 45px rgba(71, 85, 105, .09);
+}
+
+.table-card {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 17px 20px;
+    border-bottom: 1px solid #edf1f6;
+    text-align: left;
+}
+
+th {
+    color: var(--muted);
+    background: #fafbfe;
+    font-size: 13px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.song-name {
+    font-weight: 700;
+}
+
+.tag {
+    display: inline-block;
+    border-radius: 999px;
+    color: #5145cd;
+    background: #eeecff;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    background: white;
+    padding: 10px 16px;
+    font: inherit;
+    font-weight: 650;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    border-color: #b9c2ce;
+    background: #f8fafc;
+}
+
+.button.primary {
+    border-color: var(--primary);
+    color: white;
+    background: var(--primary);
+}
+
+.button.primary:hover {
+    background: var(--primary-dark);
+}
+
+.button.small {
+    padding: 7px 11px;
+    font-size: 14px;
+}
+
+.alert {
+    border-radius: 10px;
+    margin-bottom: 18px;
+    padding: 13px 16px;
+}
+
+.alert.success {
+    color: var(--success-text);
+    background: var(--success-bg);
+}
+
+.form-card {
+    padding: 32px;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--primary);
+    margin-bottom: 18px;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.form-group {
+    margin-top: 24px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+input,
+textarea {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    background: white;
+    padding: 12px 13px;
+    font: inherit;
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(91, 75, 232, .12);
+}
+
+input.invalid,
+textarea.invalid {
+    border-color: var(--danger);
+}
+
+.hint,
+.error {
+    margin: 7px 0 0;
+    font-size: 13px;
+}
+
+.error {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.empty {
+    color: var(--muted);
+    padding: 40px;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .container {
+        padding: 32px 0;
+    }
+
+    .page-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .form-card {
+        padding: 24px 18px;
+    }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${formTitle}">Thông tin bài hát</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="container narrow">
+    <a class="back-link" th:href="@{/songs}">&larr; Quay lại danh sách</a>
+
+    <section class="card form-card">
+        <p class="eyebrow">Music Library</p>
+        <h1 th:text="${formTitle}"></h1>
+        <p class="subtitle">Nhập đầy đủ thông tin bên dưới. Các trường có dấu * là bắt buộc.</p>
+
+        <form th:action="${song.id == null} ? @{/songs/create} : @{/songs/{id}/edit(id=${song.id})}"
+              th:object="${song}" method="post" novalidate>
+            <div class="form-group">
+                <label for="name">Tên bài hát *</label>
+                <input id="name" type="text" th:field="*{name}"
+                       th:classappend="${#fields.hasErrors('name')} ? 'invalid'"
+                       placeholder="Ví dụ: Nối Vòng Tay Lớn">
+                <p class="hint">Tối đa 800 ký tự, không chứa ký tự đặc biệt.</p>
+                <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="artist">Nghệ sĩ thể hiện *</label>
+                <input id="artist" type="text" th:field="*{artist}"
+                       th:classappend="${#fields.hasErrors('artist')} ? 'invalid'"
+                       placeholder="Ví dụ: Trịnh Công Sơn">
+                <p class="hint">Tối đa 300 ký tự, không chứa ký tự đặc biệt.</p>
+                <p class="error" th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="genre">Thể loại *</label>
+                <textarea id="genre" rows="3" th:field="*{genre}"
+                          th:classappend="${#fields.hasErrors('genre')} ? 'invalid'"
+                          placeholder="Ví dụ: Pop, Ballad"></textarea>
+                <p class="hint">Tối đa 1000 ký tự. Có thể phân tách nhiều thể loại bằng dấu phẩy.</p>
+                <p class="error" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></p>
+            </div>
+
+            <div class="actions">
+                <a class="button" th:href="@{/songs}">Hủy</a>
+                <button class="button primary" type="submit"
+                        th:text="${song.id == null} ? 'Thêm bài hát' : 'Lưu thay đổi'"></button>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>
