@@ -1,40 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cập nhật Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="container narrow">
+    <h1>Cập nhật Blog</h1>
 
-<h1>Cập nhật Blog</h1>
+    <form class="editor-form" th:action="@{/blogs/{id}/edit(id=${blog.id})}" th:object="${blog}" method="post">
+        <label for="title">Tiêu đề</label>
+        <input id="title" type="text" th:field="*{title}" required>
 
-<form th:action="@{/blogs/{id}/edit(id=${blog.id})}" th:object="${blog}" method="post">
+        <label for="summary">Tóm tắt</label>
+        <textarea id="summary" th:field="*{summary}" rows="3" required></textarea>
 
-    <div>
-        <label>Tiêu đề:</label><br>
-        <input type="text" th:field="*{title}" required>
-    </div>
+        <label for="content">Nội dung</label>
+        <textarea id="content" th:field="*{content}" rows="12" required></textarea>
 
-    <br>
+        <label for="categoryId">Danh mục</label>
+        <select id="categoryId" name="categoryId" required>
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    th:text="${category.name}"
+                    th:selected="${blog.category != null && blog.category.id == category.id}"></option>
+        </select>
 
-    <div>
-        <label>Tóm tắt:</label><br>
-        <textarea th:field="*{summary}" rows="3" cols="50" required></textarea>
-    </div>
-
-    <br>
-
-    <div>
-        <label>Nội dung:</label><br>
-        <textarea th:field="*{content}" rows="10" cols="80" required></textarea>
-    </div>
-
-    <br>
-
-    <button type="submit">Cập nhật</button>
-    <a th:href="@{/blogs}">Quay lại</a>
-
-</form>
-
+        <div class="actions">
+            <button type="submit">Cập nhật</button>
+            <a class="button secondary" th:href="@{/blogs}">Quay lại</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>

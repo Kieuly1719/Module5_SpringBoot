@@ -1,44 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Danh sách Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Danh sách Blog</h1>
-<a th:href="@{/blogs/create}">Viết blog mới</a>
-<hr>
-<table border="1" cellpadding="10">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Tiêu đề</th>
-        <th>Tóm tắt</th>
-        <th>Ngày tạo</th>
-        <th>Hành động</th>
-    </tr>
-    </thead>
+<div class="container">
+    <header class="page-header">
+        <div>
+            <h1>Danh sách Blog</h1>
+            <p>Các bài viết được sắp xếp từ mới nhất đến cũ nhất.</p>
+        </div>
+        <div class="actions">
+            <a class="button" th:href="@{/blogs/create}">Viết blog mới</a>
+            <a class="button secondary" th:href="@{/categories}">Quản lý danh mục</a>
+        </div>
+    </header>
 
-    <tbody>
-    <tr th:each="blog : ${blogs}">
-        <td th:text="${blog.id}"></td>
-        <td th:text="${blog.title}"></td>
-        <td th:text="${blog.summary}"></td>
-        <td th:text="${blog.createdAt}"></td>
-        <td>
-            <a th:href="@{/blogs/{id}(id=${blog.id})}">Xem</a>
-            |
-            <a th:href="@{/blogs/{id}/edit(id=${blog.id})}">Sửa</a>
-            |
-            <form th:action="@{/blogs/{id}/delete(id=${blog.id})}" method="post" style="display:inline">
-                <button type="submit" onclick="return confirm('Bạn có chắc muốn xoá blog này không?')">
-                    Xoá
-                </button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <nav class="category-menu">
+        <strong>Danh mục:</strong>
+        <a th:classappend="${categoryId == null} ? 'active'"
+           th:href="@{/blogs(keyword=${keyword})}">Tất cả</a>
+        <a th:each="category : ${categories}"
+           th:classappend="${categoryId == category.id} ? 'active'"
+           th:href="@{/blogs(categoryId=${category.id},keyword=${keyword})}"
+           th:text="${category.name}"></a>
+    </nav>
 
+    <form class="search-form" th:action="@{/blogs}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm kiếm theo tiêu đề">
+        <input th:if="${categoryId != null}" type="hidden" name="categoryId" th:value="${categoryId}">
+        <button type="submit">Tìm kiếm</button>
+        <a th:if="${!keyword.isBlank()}" th:href="@{/blogs(categoryId=${categoryId})}">Xóa tìm kiếm</a>
+    </form>
+
+    <p class="empty-message" th:if="${blogs.isEmpty()}">Không tìm thấy bài viết phù hợp.</p>
+
+    <table th:unless="${blogs.isEmpty()}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tiêu đề</th>
+            <th>Tóm tắt</th>
+            <th>Danh mục</th>
+            <th>Ngày tạo</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="blog : ${blogs}">
+            <td th:text="${blog.id}"></td>
+            <td th:text="${blog.title}"></td>
+            <td th:text="${blog.summary}"></td>
+            <td th:text="${blog.category != null ? blog.category.name : 'Chưa phân loại'}"></td>
+            <td th:text="${#temporals.format(blog.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+            <td class="row-actions">
+                <a th:href="@{/blogs/{id}(id=${blog.id})}">Xem</a>
+                <a th:href="@{/blogs/{id}/edit(id=${blog.id})}">Sửa</a>
+                <form th:action="@{/blogs/{id}/delete(id=${blog.id})}" method="post">
+                    <button class="link-button danger" type="submit"
+                            onclick="return confirm('Bạn có chắc muốn xóa blog này không?')">
+                        Xóa
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav class="pagination" th:if="${blogs.totalPages > 0}">
+        <a th:if="${blogs.hasPrevious()}"
+           th:href="@{/blogs(page=${blogs.number - 1},keyword=${keyword},categoryId=${categoryId})}">
+            Trang trước
+        </a>
+
+        <span th:each="pageNumber : ${#numbers.sequence(0, blogs.totalPages - 1)}">
+            <strong th:if="${pageNumber == blogs.number}" th:text="${pageNumber + 1}"></strong>
+            <a th:unless="${pageNumber == blogs.number}"
+               th:href="@{/blogs(page=${pageNumber},keyword=${keyword},categoryId=${categoryId})}"
+               th:text="${pageNumber + 1}"></a>
+        </span>
+
+        <a th:if="${blogs.hasNext()}"
+           th:href="@{/blogs(page=${blogs.number + 1},keyword=${keyword},categoryId=${categoryId})}">
+            Trang sau
+        </a>
+    </nav>
+</div>
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý danh mục</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container narrow">
+    <header class="page-header">
+        <h1>Quản lý danh mục</h1>
+        <div class="actions">
+            <a class="button" th:href="@{/categories/create}">Tạo danh mục</a>
+            <a class="button secondary" th:href="@{/blogs}">Danh sách Blog</a>
+        </div>
+    </header>
+
+    <p class="error-message" th:if="${error}" th:text="${error}"></p>
+    <p class="empty-message" th:if="${categories.isEmpty()}">Chưa có danh mục nào.</p>
+
+    <table th:unless="${categories.isEmpty()}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên danh mục</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.id}"></td>
+            <td>
+                <a th:href="@{/blogs(categoryId=${category.id})}" th:text="${category.name}"></a>
+            </td>
+            <td class="row-actions">
+                <a th:href="@{/categories/{id}/edit(id=${category.id})}">Sửa</a>
+                <form th:action="@{/categories/{id}/delete(id=${category.id})}" method="post">
+                    <button class="link-button danger" type="submit"
+                            onclick="return confirm('Bạn có chắc muốn xóa danh mục này không?')">
+                        Xóa
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

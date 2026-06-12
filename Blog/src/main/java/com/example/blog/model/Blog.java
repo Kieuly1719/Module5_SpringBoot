@@ -16,6 +16,9 @@ public class Blog {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     public Blog(){}
 
     @PrePersist
@@ -62,6 +65,12 @@ public class Blog {
     }
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    public Category getCategory() {
+        return category;
+    }
+    public void setCategory(Category category) {
+        this.category = category;
     }
     @Override
     public String toString() {

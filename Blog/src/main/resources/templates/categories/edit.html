@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật danh mục</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container narrow">
+    <h1>Cập nhật danh mục</h1>
+    <form class="editor-form" th:action="@{/categories/{id}/edit(id=${category.id})}"
+          th:object="${category}" method="post">
+        <label for="name">Tên danh mục</label>
+        <input id="name" type="text" th:field="*{name}" required>
+        <div class="actions">
+            <button type="submit">Cập nhật</button>
+            <a class="button secondary" th:href="@{/categories}">Quay lại</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
