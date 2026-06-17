@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="steps">
+        <div class="step active">01. Giỏ hàng</div>
+        <div class="step">02. Đơn hàng</div>
+        <div class="step">03. Thanh toán</div>
+    </div>
+
+    <div class="cart-box">
+        <h2>
+            GIỎ HÀNG
+            <span th:text="'(' + ${cart.size()} + ')'"></span>
+        </h2>
+
+        <div th:if="${cart.isEmpty()}">
+            <p>Giỏ hàng đang trống.</p>
+            <a th:href="@{/products}">Tiếp tục mua hàng</a>
+        </div>
+
+        <div th:each="item : ${cart}" class="cart-item">
+            <a class="remove-btn"
+               th:href="@{/cart/remove/{id}(id=${item.product.id})}">
+                ×
+            </a>
+
+            <img th:src="@{${item.product.image}}" alt="product">
+
+            <div class="cart-info">
+                <h3 th:text="${item.product.name}"></h3>
+
+                <p>
+                    Mã SP:
+                    <span class="green" th:text="${item.product.code}"></span>
+                </p>
+
+                <p>
+                    Đơn giá:
+                    <span th:text="${#numbers.formatDecimal(item.product.newPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                </p>
+
+                <form th:action="@{/cart/update}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.product.id}">
+
+                    <label>Số lượng:</label>
+
+                    <select name="quantity" onchange="this.form.submit()">
+                        <option th:each="i : ${#numbers.sequence(1, 10)}"
+                                th:value="${i}"
+                                th:text="${i}"
+                                th:selected="${i == item.quantity}">
+                        </option>
+                    </select>
+                </form>
+            </div>
+        </div>
+
+        <div th:if="${!cart.isEmpty()}" class="cart-total">
+            Tổng cộng:
+            <span th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+        </div>
+
+        <div th:if="${!cart.isEmpty()}">
+            <a class="checkout-btn" th:href="@{/cart/checkout}">
+                Thanh toán
+            </a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

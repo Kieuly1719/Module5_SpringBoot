@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="steps">
+        <div class="step">01. Giỏ hàng</div>
+        <div class="step active">02. Đơn hàng</div>
+        <div class="step">03. Thanh toán</div>
+    </div>
+
+    <h2>THÔNG TIN THANH TOÁN</h2>
+
+    <form th:action="@{/cart/checkout}" method="post" class="checkout-form">
+        <label>Họ tên</label>
+        <input type="text" name="customerName" required>
+
+        <label>Số điện thoại</label>
+        <input type="text" name="phone" required>
+
+        <label>Địa chỉ giao hàng</label>
+        <textarea name="address" required></textarea>
+
+        <h3>Đơn hàng của bạn</h3>
+
+        <div th:each="item : ${cart}">
+            <p>
+                <span th:text="${item.product.name}"></span>
+                x
+                <span th:text="${item.quantity}"></span>
+                =
+                <span th:text="${#numbers.formatDecimal(item.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+            </p>
+        </div>
+
+        <h3>
+            Tổng tiền:
+            <span th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+        </h3>
+
+        <button type="submit" class="checkout-btn">
+            Xác nhận đặt hàng
+        </button>
+    </form>
+
+</div>
+
+</body>
+</html>

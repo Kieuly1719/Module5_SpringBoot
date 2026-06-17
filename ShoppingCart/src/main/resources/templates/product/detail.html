@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="detail">
+        <div class="detail-left">
+            <img th:src="@{${product.image}}" alt="product">
+
+            <div class="product-code">
+                Mã SP:
+                <span th:text="${product.code}"></span>
+            </div>
+
+            <hr>
+
+            <p>
+                <del>
+                    Giá cũ:
+                    <span th:text="${#numbers.formatDecimal(product.oldPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                </del>
+            </p>
+
+            <p class="detail-price">
+                Giá mới:
+                <span th:text="${#numbers.formatDecimal(product.newPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+            </p>
+
+            <a class="buy-btn" th:href="@{/cart/add/{id}(id=${product.id})}">
+                MUA NGAY
+            </a>
+        </div>
+
+        <div class="detail-right">
+            <h2 th:text="${product.name}"></h2>
+
+            <div class="promotion">
+                <p><span>1</span> Tặng banner, thiệp miễn phí</p>
+                <p><span>2</span> Giảm ngay 20.000đ khi đặt online</p>
+                <p><span>3</span> Giảm tiếp 3% cho đơn hàng online lần thứ 2</p>
+                <p><span>4</span> Giao miễn phí trong nội thành</p>
+                <p><span>5</span> Giao gấp trong vòng 2 giờ</p>
+                <p><span>6</span> Cam kết hoàn tiền nếu không hài lòng</p>
+                <p><span>7</span> Cam kết hoa tươi trên 3 ngày</p>
+            </div>
+
+            <p th:text="${product.description}"></p>
+
+            <a th:href="@{/products}">Quay lại danh sách</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
