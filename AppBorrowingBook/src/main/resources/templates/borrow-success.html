@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Borrow Success</title>
+</head>
+<body>
+
+<h1>Mượn sách thành công</h1>
+
+<p>Mã mượn sách của bạn là:</p>
+
+<h2 th:text="${code}"></h2>
+
+<p>Hãy lưu mã này để trả sách.</p>
+
+<a href="/books">Quay lại danh sách</a>
+
+</body>
+</html>
