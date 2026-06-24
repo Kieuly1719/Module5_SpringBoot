@@ -46,7 +46,7 @@ public class ShoppingCartApplication {
                         .build());
 
                 productService.save(Product.builder()
-                        .code("6001")
+                          .code("6001")
                         .name("Sản phẩm 4")
                         .oldPrice(650000)
                         .newPrice(600000)

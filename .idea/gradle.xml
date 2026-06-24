@@ -9,8 +9,13 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/demo" />
+            <option value="$PROJECT_DIR$/UngDungTuDien" />
+            <option value="$PROJECT_DIR$/AppTuDien" />
           </set>
         </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/UngDungTuDien" />
       </GradleProjectSettings>
     </option>
   </component>

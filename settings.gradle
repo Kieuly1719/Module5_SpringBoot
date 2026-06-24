@@ -1,2 +1,4 @@
 rootProject.name = 'Module5_SpringBoot'
 include 'demo'
+include 'UngDungTuDien'
+include 'AppTuDien'
