@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog AJAX</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a class="brand" href="/blogs">Blog AJAX</a>
+        <nav class="nav-links" aria-label="Dieu huong">
+            <a href="/blogs">Trang chu</a>
+            <a href="/api/blogs" target="_blank" rel="noreferrer">REST API</a>
+            <a href="/h2-console" target="_blank" rel="noreferrer">H2 Console</a>
+        </nav>
+    </div>
+</header>
+
+<main class="page-shell">
+    <section class="toolbar" aria-labelledby="page-title">
+        <div>
+            <p class="eyebrow">Spring MVC 2.1 - jQuery & AJAX</p>
+            <h1 id="page-title">Danh sach bai viet</h1>
+        </div>
+        <form id="search-form" class="search-form">
+            <label class="sr-only" for="keyword">Tu khoa tim kiem</label>
+            <input id="keyword" name="keyword" type="search" placeholder="Nhap tu khoa: Java, AJAX, REST..."
+                   autocomplete="off">
+            <button type="submit">Tim kiem</button>
+        </form>
+    </section>
+
+    <section class="result-bar" aria-live="polite">
+        <span id="result-summary">Dang tai danh sach bai viet...</span>
+        <button id="clear-search" type="button" hidden>Xoa tim kiem</button>
+    </section>
+
+    <section id="blog-list" class="blog-grid" aria-live="polite"></section>
+
+    <div id="empty-state" class="empty-state" hidden>
+        <h2>Khong tim thay bai viet</h2>
+        <p>Thu nhap tu khoa ngan hon hoac tim theo chu de khac.</p>
+    </div>
+
+    <div class="load-more-wrap">
+        <button id="load-more" type="button" hidden>Tai them</button>
+    </div>
+</main>
+
+<div id="detail-modal" class="modal" hidden>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+        <button id="close-detail" class="modal-close" type="button" aria-label="Dong chi tiet">x</button>
+        <p id="detail-category" class="eyebrow"></p>
+        <h2 id="detail-title"></h2>
+        <p id="detail-date" class="detail-date"></p>
+        <p id="detail-summary" class="detail-summary"></p>
+        <p id="detail-content"></p>
+    </div>
+</div>
+
+<script src="/js/blog.js"></script>
+</body>
+</html>
