@@ -249,10 +249,14 @@ h1 {
     position: fixed;
     inset: 0;
     z-index: 20;
-    display: grid;
+    display: none;
     place-items: center;
     padding: 24px;
     background: rgba(18, 27, 37, 0.55);
+}
+
+.modal.is-open {
+    display: grid;
 }
 
 .modal-panel {

@@ -127,11 +127,13 @@
         document.getElementById("detail-date").textContent = formatDate(blog.createdAt);
         document.getElementById("detail-summary").textContent = blog.summary;
         document.getElementById("detail-content").textContent = blog.content;
-        modal.hidden = false;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
     }
 
     function closeDetail() {
-        modal.hidden = true;
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
     }
 
     searchForm.addEventListener("submit", function (event) {
